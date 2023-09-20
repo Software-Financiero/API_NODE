@@ -14,8 +14,8 @@ const getPib = async (req, res) => {
 
 const postPib = async (req, res) => {
   try {
-    console.log("entro"); 
-    const pib = await PibDatabase.postPib(); 
+    const datosRecibidos = req.body;
+    const pib = await PibDatabase.postPib(datosRecibidos); 
     res.status(201).send({ status: "OK", data: pib });
   } catch (error) {
     res

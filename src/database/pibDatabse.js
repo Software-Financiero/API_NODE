@@ -8,19 +8,15 @@ const getPib = async () => {
   }
 };
 
-const postPib = async () => {
-  const periodo1 = "2012";
-  const milesDeMillonesDePeso2 = 334.556;
+const postPib = async (datosRecibidos) => {
   try {
-    const Result = await PIB.create({
-      periodo: 2001,
-      milesDeMillonesDePesos:200.0
-    });
+    const Result = await PIB.create(datosRecibidos);
     return Result;
   } catch (error) {
     throw { error };
   }
 };
+
 module.exports = {
   getPib,
   postPib,

@@ -7,7 +7,11 @@ const { swaggerDocs: V1SwaggerDocs } = require("./v1/swagger");
 const cors = require("cors");
 
 //#region
-const v1RoutesRouter = require("./v1/routes/macroeconomicos/pibRoutes");
+const PibRoute= require("./v1/routes/macroeconomicos/pibRoutes");
+const IedRoute = require("./v1/routes/macroeconomicos/iedRoutes");
+const InflacionRoute = require("./v1/routes/macroeconomicos/inflacionRoutes");
+const DesempleoRoute = require("./v1/routes/macroeconomicos/desempleoRoutes");
+const DeudaPublicaRoute = require("./v1/routes/macroeconomicos/deudaPublicaRoutes");
 
 //#endregion
 
@@ -19,8 +23,12 @@ async function main() {
     app.use(bodyParser.json());
     app.use(cors({ origin: `http://localhost:${PORT}` }));
 
-    app.use("/api/v1/pib", v1RoutesRouter);
-
+    app.use("/api/v1/pib", PibRoute);
+    app.use("/api/v1/ied", IedRoute);
+    app.use("/api/v1/inflacion", InflacionRoute);
+    app.use("/api/v1/desempleo", DesempleoRoute);
+    app.use("/api/v1/deuda",  DeudaPublicaRoute);
+   
     app.listen(PORT, () => {
       console.log(`API is listening on port ${PORT}`);
       V1SwaggerDocs(app, PORT);

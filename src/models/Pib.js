@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
 
 const PibSchema = new mongoose.Schema({
-  periodo: {
-    type: Number,
-    required: true
+  Ano:{
+    type: String,
+    require:true
   },
-  milesDeMillonesDePesos: {
-    type: Number, 
-    required: true 
-  }
+  Trimestre:{
+    type: Number,
+    require:true
+  },
+  PIB:{
+    type: Number,
+    require:true
+  },
 });
 
 
