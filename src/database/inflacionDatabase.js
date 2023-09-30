@@ -1,8 +1,8 @@
-const {Inflacion} = require("../models/Inflacion");
+const { Inflacion } = require("../models/Inflacion");
 
 const getInflacion = async () => {
   try {
-    return await Inflacion.find(); 
+    return await Inflacion.find().sort({ Orden: 1 });
   } catch (error) {
     throw { error };
   }
@@ -10,7 +10,12 @@ const getInflacion = async () => {
 
 const postInflacion = async (datosRecibidos) => {
   try {
-    const Result = await Inflacion.create(datosRecibidos);
+    const datosConOrden = datosRecibidos.map((dato, index) => ({
+      ...dato,
+      Orden: index + 1,
+    }));
+
+    const Result = await Inflacion.create(datosConOrden);
     return Result;
   } catch (error) {
     throw { error };

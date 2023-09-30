@@ -10,8 +10,14 @@ const getDeuda = async () => {
 
 const postDeuda = async (datosRecibidos) => {
   try {
-    const Result = await Deuda.create(datosRecibidos);
+    const datosConOrden = datosRecibidos.map((dato, index) => ({
+      ...dato,
+      Orden: index + 1, 
+    }));
+
+    const Result = await Deuda.create(datosConOrden);
     return Result;
+
   } catch (error) {
     throw { error };
   }
