@@ -1,9 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const PibController = require("../../../controller/macroeconomicos/PibController");
+const PibController = require('../../../controller/macroeconomicos/PibController')
 
-router.get("/", PibController.getPib);
-router.post("/save", PibController.postPib);
+const path = '/api/v1/pib'
 
-module.exports = router;
+router.get(`${path}/`, PibController.getPib)
+router.post(`${path}/save`, PibController.postPib)
+
+module.exports = router

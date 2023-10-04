@@ -1,23 +1,20 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const PibSchema = new mongoose.Schema({
-  Ano:{
+  Ano: {
     type: String,
-    require:true
+    require: true
   },
-  Trimestre:{
+  Trimestre: {
     type: Number,
-    require:true
+    require: true
   },
-  PIB:{
+  PIB: {
     type: Number,
-    require:true
-  },
-});
+    require: true
+  }
+})
 
+const PIB = mongoose.model('PIB', PibSchema, 'PIB')
 
-const PIB = mongoose.model("PIB", PibSchema, "PIB");
-
-module.exports = { PIB };
-
-
+module.exports = { PIB }

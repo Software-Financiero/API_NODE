@@ -1,9 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const InflacionController = require("../../../controller/macroeconomicos/inflacionController");
+const InflacionController = require('../../../controller/macroeconomicos/inflacionController')
 
-router.get("/", InflacionController.getInflacion);
-router.post("/save", InflacionController.postInflacion);
+const path = '/api/v1/inflacion'
 
-module.exports = router;
+router.get(`${path}/`, InflacionController.getInflacion)
+router.post(`${path}/save`, InflacionController.postInflacion)
+
+module.exports = router

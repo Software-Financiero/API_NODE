@@ -1,9 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const DesempleoController = require("../../../controller/macroeconomicos/desempleoController");
+const DesempleoController = require('../../../controller/macroeconomicos/desempleoController')
 
-router.get("/", DesempleoController.getDesempleo);
-router.post("/save",DesempleoController.postDesempleo);
+const path = '/api/v1/desempleo'
 
-module.exports = router;
+router.get(`${path}/`, DesempleoController.getDesempleo)
+router.post(`${path}/save`, DesempleoController.postDesempleo)
+
+module.exports = router

@@ -1,9 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const IedController = require("../../../controller/macroeconomicos/iedController");
+const IedController = require('../../../controller/macroeconomicos/iedController')
 
-router.get("/", IedController.getIed);
-router.post("/save",IedController.postIed);
+const path = '/api/v1/ied'
 
-module.exports = router;
+router.get(`${path}/`, IedController.getIed)
+router.post(`${path}/save`, IedController.postIed)
+
+module.exports = router
