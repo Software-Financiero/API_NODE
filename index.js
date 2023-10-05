@@ -22,7 +22,14 @@ app.use(DesempleoRoute)
 app.use(DeudaPublicaRoute)
 
 app.use(bodyParser.json())
-app.use(cors({ origin: '*' }))
+
+const corsOrigin ={
+  origin:'http://localhost:5173', //or whatever port your frontend is using
+  credentials:true,            
+  optionSuccessStatus:200
+}
+
+app.use(cors(corsOrigin))
 // #endregion
 
 app.get('/', (req, res) => {
