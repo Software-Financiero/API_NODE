@@ -2,11 +2,14 @@ const { PIB } = require('../models/Pib')
 
 const getPib = async () => {
   try {
-    return await PIB.find().sort({ Ano: 1, Trimestre: 1 })
+    const pibData = await PIB.find().sort({ Ano: 1, Trimestre: 1 });
+    const pibDataFiltrada = pibData.filter(item => item.Ano > 2019);
+    return pibDataFiltrada;
   } catch (error) {
-    throw { error }
+    throw { error };
   }
-}
+};
+
 
 const postPib = async (datosRecibidos) => {
   try {
