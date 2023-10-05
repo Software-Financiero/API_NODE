@@ -2,7 +2,7 @@ const {Desempleo} = require("../models/Desempleo");
 
 const getDesempleo = async () => {
   try {
-    return await Desempleo.find().sort({ Orden: 1 });  
+    return await Desempleo.find();  
   } catch (error) {
     throw { error };
   }
@@ -10,11 +10,7 @@ const getDesempleo = async () => {
 
 const postDesempleo = async (datosRecibidos) => {
   try {
-    const datosConOrden = datosRecibidos.map((dato, index) => ({
-      ...dato,
-      Orden: index + 1, 
-    }));
-    const Result = await Desempleo.create(datosConOrden);
+    const Result = await Desempleo.create(datosRecibidos);
     return Result; 
   } catch (error) {
     throw { error };
