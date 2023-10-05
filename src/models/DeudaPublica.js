@@ -1,25 +1,24 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const DeudaSchema = new mongoose.Schema({
-  Ano:{
+  Ano: {
     type: String,
-    require:true
+    require: true
   },
-  Mes:{
+  Mes: {
     type: String,
-    require:true
+    require: true
   },
-  Dia:{
+  Dia: {
     type: String,
-    require:true
+    require: true
   },
-  total:{
+  total: {
     type: Number,
-    require:true
-  },
-});
+    require: true
+  }
+})
 
+const Deuda = mongoose.model('Deuda', DeudaSchema, 'Deuda')
 
-const Deuda = mongoose.model("Deuda", DeudaSchema, "Deuda");
-
-module.exports = {Deuda};
+module.exports = { Deuda }

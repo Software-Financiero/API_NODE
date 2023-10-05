@@ -1,9 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const DeudaController = require("../../../controller/macroeconomicos/deudaPublicaController");
+const DeudaController = require('../../../controller/macroeconomicos/deudaPublicaController')
 
-router.get("/", DeudaController.getDeuda);
-router.post("/save",DeudaController.postDeuda);
+const path = '/api/v1/deuda'
 
-module.exports = router;
+router.get(`${path}`, DeudaController.getDeuda)
+router.post(`${path}/save`, DeudaController.postDeuda)
+
+module.exports = router

@@ -1,22 +1,20 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const DesempleoSchema = new mongoose.Schema({
-  Ano:{
+  Ano: {
     type: String,
-    require:true
+    require: true
   },
-  Mes:{
+  Mes: {
     type: String,
-    require:true
+    require: true
   },
-  Tasa:{
+  Tasa: {
     type: Number,
-    require:true
-  },
-});
+    require: true
+  }
+})
 
+const Desempleo = mongoose.model('Desempleo', DesempleoSchema, 'Desempleo')
 
-const Desempleo = mongoose.model("Desempleo", DesempleoSchema, "Desempleo");
-
-module.exports = {Desempleo};
-
+module.exports = { Desempleo }

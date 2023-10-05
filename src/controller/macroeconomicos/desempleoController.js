@@ -2,7 +2,7 @@ const DesempleoDatabase = require("../../database/desempeloDatabase");
 
 const getDesempleo = async (req, res) => {
   try {
-    const Desempleo = await DesempleoDatabase.getDesempleo(); 
+    const Desempleo = await DesempleoDatabase.getDesempleo();
     res.status(201).send({ status: "OK", data: Desempleo });
   } catch (error) {
     res
@@ -25,5 +25,5 @@ const postDesempleo = async (req, res) => {
 
 module.exports = {
   getDesempleo,
-  postDesempleo
+  postDesempleo,
 };

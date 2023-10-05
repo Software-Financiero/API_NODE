@@ -1,22 +1,20 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const IedSchema = new mongoose.Schema({
-  Ano:{
+  Ano: {
     type: String,
-    require:true
+    require: true
   },
-  Trimestre:{
+  Trimestre: {
     type: Number,
-    require:true
+    require: true
   },
-  Total:{
+  Total: {
     type: Number,
-    require:true
-  },
-});
+    require: true
+  }
+})
 
+const IED = mongoose.model('IED', IedSchema, 'IED')
 
-const IED = mongoose.model("IED", IedSchema, "IED");
-
-module.exports = {IED};
-
+module.exports = { IED }
