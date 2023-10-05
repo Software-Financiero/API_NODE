@@ -2,7 +2,9 @@ const { IED } = require('../models/IED')
 
 const getIed = async () => {
   try {
-    return await IED.find().sort({Ano:1, Trimestre:1, Orden: 1 })
+    const iedData= await IED.find().sort({Ano:1, Trimestre:1, Orden: 1 })
+    const iedDataFiltrada = iedData.filter(item => item.Ano > 2019);
+    return iedDataFiltrada;
   } catch (error) {
     throw { error }
   }
