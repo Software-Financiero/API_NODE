@@ -14,6 +14,10 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 3000
 
+app.use(cors({
+  origin: '*'
+}))
+
 // routes
 app.use(PibRoute)
 app.use(IedRoute)
@@ -22,15 +26,6 @@ app.use(DesempleoRoute)
 app.use(DeudaPublicaRoute)
 
 app.use(bodyParser.json())
-
-const corsOrigin ={
-  origin:'http://localhost:5173', //or whatever port your frontend is using
-  credentials:true,            
-  optionSuccessStatus:200
-}
-
-app.use(cors(corsOrigin))
-// #endregion
 
 app.get('/', (req, res) => {
   res.status(200).json({ msg: 'Welcome to my API' })
