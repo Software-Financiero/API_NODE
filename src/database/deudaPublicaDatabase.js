@@ -46,11 +46,11 @@ const postDeuda = async (datosRecibidos) => {
     const Result = await Deuda.create(datosConOrden);
     return Result;
   } catch (error) {
-    throw { error };
+    throw { error }
   }
-};
+}
 
 module.exports = {
   getDeuda,
-  postDeuda,
-};
+  postDeuda
+}

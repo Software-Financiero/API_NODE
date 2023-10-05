@@ -36,7 +36,6 @@ const getInflacion = async () => {
   }
 }
 
-
 const postInflacion = async (datosRecibidos) => {
   try {
     const datosConOrden = datosRecibidos.map((dato, index) => ({

@@ -36,7 +36,6 @@ const getDesempleo = async () => {
   }
 }
 
-
 const postDesempleo = async (datosRecibidos) => {
   try {
     const datosConOrden = datosRecibidos.map((dato, index) => ({
@@ -45,11 +44,11 @@ const postDesempleo = async (datosRecibidos) => {
     }));
     return (Result = await Desempleo.create(datosConOrden));
   } catch (error) {
-    throw { error };
+    throw { error }
   }
-};
+}
 
 module.exports = {
   getDesempleo,
-  postDesempleo,
-};
+  postDesempleo
+}
