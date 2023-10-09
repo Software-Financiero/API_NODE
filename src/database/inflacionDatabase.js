@@ -15,7 +15,7 @@ const meses = {
   Dic: 12,
 };
 
-const getInflacion = async () => {
+const getInflacionGrafica = async () => {
   try {
     const inflacionData = await Inflacion.aggregate([
       {
@@ -41,6 +41,32 @@ const getInflacion = async () => {
   }
 };
 
+const getInflacion = async () => {
+  try {
+    const inflacionData = await Inflacion.aggregate([
+      {
+        $addFields: {
+          MesNumerico: {
+            $arrayElemAt: [
+              Object.values(meses),
+              {
+                $indexOfArray: [Object.keys(meses), "$Mes"],
+              },
+            ],
+          },
+        },
+      },
+      {
+        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
+      },
+    ]);
+
+    return inflacionData;
+  } catch (error) {
+    throw { error };
+  }
+};
+
 const postInflacion = async (datosRecibidos) => {
   try {
     const datosConOrden = datosRecibidos.map((dato, index) => ({
@@ -58,4 +84,5 @@ const postInflacion = async (datosRecibidos) => {
 module.exports = {
   getInflacion,
   postInflacion,
+  getInflacionGrafica
 };
