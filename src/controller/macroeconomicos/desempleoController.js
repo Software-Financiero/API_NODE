@@ -11,6 +11,17 @@ const getDesempleo = async (req, res) => {
   }
 };
 
+const getDesempleoGrafica = async (req, res) => {
+  try {
+    const Desempleo = await DesempleoDatabase.getDesempleoGrafica();
+    res.status(201).send({ status: "OK", data: Desempleo });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
+};
+
 const postDesempleo = async (req, res) => {
   try {
     const datosRecibidos = req.body;
@@ -26,4 +37,5 @@ const postDesempleo = async (req, res) => {
 module.exports = {
   getDesempleo,
   postDesempleo,
+  getDesempleoGrafica
 };

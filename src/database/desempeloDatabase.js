@@ -1,19 +1,19 @@
 const { Desempleo } = require("../models/Desempleo");
 
 const meses = {
-  "Ene": 1,
-  "Feb": 2,
-  "Mar": 3,
-  "Abr": 4,
-  "May": 5,
-  "Jun": 6,
-  "Jul": 7,
-  "Ago": 8,
-  "Sep": 9,
-  "Oct": 10,
-  "Nov": 11,
-  "Dic": 12
-}
+  Ene: 1,
+  Feb: 2,
+  Mar: 3,
+  Abr: 4,
+  May: 5,
+  Jun: 6,
+  Jul: 7,
+  Ago: 8,
+  Sep: 9,
+  Oct: 10,
+  Nov: 11,
+  Dic: 12,
+};
 
 const getDesempleo = async () => {
   try {
@@ -21,20 +21,50 @@ const getDesempleo = async () => {
       {
         $addFields: {
           MesNumerico: {
-            $arrayElemAt: [Object.values(meses), {
-              $indexOfArray: [Object.keys(meses), "$Mes"]
-            }]
-          }
-        }
+            $arrayElemAt: [
+              Object.values(meses),
+              {
+                $indexOfArray: [Object.keys(meses), "$Mes"],
+              },
+            ],
+          },
+        },
       },
       {
-        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 }
-      }
+        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
+      },
     ]);
   } catch (error) {
-    throw { error }
+    throw { error };
   }
-}
+};
+
+const getDesempleoGrafica = async () => {
+  try {
+    return await Desempleo.aggregate([
+      {
+        $addFields: {
+          MesNumerico: {
+            $arrayElemAt: [
+              Object.values(meses),
+              {
+                $indexOfArray: [Object.keys(meses), "$Mes"],
+              },
+            ],
+          },
+        },
+      },
+      {
+        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
+      },
+      {
+        $match: { Ano: { $gt: 2019 } },
+      },
+    ]);
+  } catch (error) {
+    throw { error };
+  }
+};
 
 const postDesempleo = async (datosRecibidos) => {
   try {
@@ -44,11 +74,12 @@ const postDesempleo = async (datosRecibidos) => {
     }));
     return (Result = await Desempleo.create(datosConOrden));
   } catch (error) {
-    throw { error }
+    throw { error };
   }
-}
+};
 
 module.exports = {
   getDesempleo,
-  postDesempleo
-}
+  postDesempleo,
+  getDesempleoGrafica,
+};
