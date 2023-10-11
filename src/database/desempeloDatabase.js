@@ -1,4 +1,4 @@
-const { Desempleo } = require("../models/Desempleo");
+const { Desempleo } = require('../models/Desempleo')
 
 const meses = {
   Ene: 1,
@@ -12,8 +12,8 @@ const meses = {
   Sep: 9,
   Oct: 10,
   Nov: 11,
-  Dic: 12,
-};
+  Dic: 12
+}
 
 const getDesempleo = async () => {
   try {
@@ -24,20 +24,20 @@ const getDesempleo = async () => {
             $arrayElemAt: [
               Object.values(meses),
               {
-                $indexOfArray: [Object.keys(meses), "$Mes"],
-              },
-            ],
-          },
-        },
+                $indexOfArray: [Object.keys(meses), '$Mes']
+              }
+            ]
+          }
+        }
       },
       {
-        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
-      },
-    ]);
+        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 }
+      }
+    ])
   } catch (error) {
-    throw { error };
+
   }
-};
+}
 
 const getDesempleoGrafica = async () => {
   try {
@@ -48,38 +48,39 @@ const getDesempleoGrafica = async () => {
             $arrayElemAt: [
               Object.values(meses),
               {
-                $indexOfArray: [Object.keys(meses), "$Mes"],
-              },
-            ],
-          },
-        },
+                $indexOfArray: [Object.keys(meses), '$Mes']
+              }
+            ]
+          }
+        }
       },
       {
-        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
+        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 }
       },
       {
-        $match: { Ano: { $gt: 2019 } },
-      },
-    ]);
+        $match: { Ano: { $gt: 2019 } }
+      }
+    ])
   } catch (error) {
-    throw { error };
+
   }
-};
+}
 
 const postDesempleo = async (datosRecibidos) => {
   try {
     const datosConOrden = datosRecibidos.map((dato, index) => ({
       ...dato,
-      Orden: index + 1,
-    }));
-    return (Result = await Desempleo.create(datosConOrden));
+      Orden: index + 1
+    }))
+    const Result = await Desempleo.create(datosConOrden)
+    return (Result)
   } catch (error) {
-    throw { error };
+
   }
-};
+}
 
 module.exports = {
   getDesempleo,
   postDesempleo,
-  getDesempleoGrafica,
-};
+  getDesempleoGrafica
+}
