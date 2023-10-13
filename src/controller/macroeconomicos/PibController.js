@@ -25,6 +25,35 @@ const PostPIBforTrimester = async (req, res) => {
   }
 }
 
+const GetPIBforYears = async (req, res) => {
+  try {
+    const data = await PIB.find().sort({ Ano: 1, Trimestre: 1 })
+
+    const pibPorAño = data.reduce((resultado, objeto) => {
+      const ano = objeto.Ano
+      const pib = objeto.PIB
+
+      if (resultado[ano]) {
+        resultado[ano] += pib
+      } else {
+        resultado[ano] = pib
+      }
+      return resultado
+    }, {})
+
+    // Convierte el objeto en un arreglo de objetos
+    const pibAnualArray = Object.entries(pibPorAño).map(([ano, pib]) => ({
+      Ano: ano,
+      PIB: pib
+    }))
+
+    // Imprime el resultado
+    res.status(200).send(pibAnualArray)
+  } catch (error) {
+    res.send(error)
+  }
+}
+
 const getPib = async (req, res) => {
   try {
     const pib = await PibDatabase.getPib()
@@ -63,5 +92,6 @@ module.exports = {
   getPib,
   postPib,
   getPibGrafica,
+  GetPIBforYears,
   PostPIBforTrimester
 }

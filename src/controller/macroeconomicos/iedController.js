@@ -25,6 +25,35 @@ const PostIEDforTrimester = async (req, res) => {
   }
 }
 
+const GetIEDforYears = async (req, res) => {
+  try {
+    const data = await IED.find().sort({ Ano: 1, Trimestre: 1 })
+
+    const iedPorAño = data.reduce((resultado, objeto) => {
+      const ano = objeto.Ano
+      const pib = objeto.Total
+
+      if (resultado[ano]) {
+        resultado[ano] += pib
+      } else {
+        resultado[ano] = pib
+      }
+      return resultado
+    }, {})
+
+    // Convierte el objeto en un arreglo de objetos
+    const iedAnualArray = Object.entries(iedPorAño).map(([ano, total]) => ({
+      Ano: ano,
+      Total: total
+    }))
+
+    // Imprime el resultado
+    res.status(200).send(iedAnualArray)
+  } catch (error) {
+    res.send(error)
+  }
+}
+
 const getIed = async (req, res) => {
   try {
     const Ied = await IedDatabase.getIed()
@@ -63,5 +92,6 @@ module.exports = {
   getIed,
   postIed,
   getIedGrafica,
+  GetIEDforYears,
   PostIEDforTrimester
 }

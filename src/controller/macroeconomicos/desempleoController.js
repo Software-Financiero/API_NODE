@@ -25,6 +25,35 @@ const PostDesempleoforTrimester = async (req, res) => {
   }
 }
 
+const getDesempleoforYears = async (req, res) => {
+  try {
+    const data = await Desempleo.find().sort({ Ano: 1, Trimestre: 1 })
+
+    const desempleoPorAño = data.reduce((resultado, objeto) => {
+      const ano = objeto.Ano
+      const tasa = objeto.Tasa
+
+      if (resultado[ano]) {
+        resultado[ano] += tasa
+      } else {
+        resultado[ano] = tasa
+      }
+      return resultado
+    }, {})
+
+    // Convierte el objeto en un arreglo de objetos
+    const desempleoAnualArray = Object.entries(desempleoPorAño).map(([ano, tasa]) => ({
+      Ano: ano,
+      Tasa: tasa
+    }))
+
+    // Imprime el resultado
+    res.status(200).send(desempleoAnualArray)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
 const getDesempleo = async (req, res) => {
   try {
     const Desempleo = await DesempleoDatabase.getDesempleo()
@@ -63,5 +92,6 @@ module.exports = {
   getDesempleo,
   postDesempleo,
   getDesempleoGrafica,
+  getDesempleoforYears,
   PostDesempleoforTrimester
 }

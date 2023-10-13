@@ -24,6 +24,36 @@ const PostDeudaforTrimester = async (req, res) => {
     res.send(error)
   }
 }
+
+const GetDeudaforYears = async (req, res) => {
+  try {
+    const data = await Deuda.find().sort({ Ano: 1, Trimestre: 1 })
+
+    const deudaPorAño = data.reduce((resultado, objeto) => {
+      const ano = objeto.Ano
+      const total = objeto.total
+
+      if (resultado[ano]) {
+        resultado[ano] += total
+      } else {
+        resultado[ano] = total
+      }
+      return resultado
+    }, {})
+
+    // Convierte el objeto en un arreglo de objetos
+    const deudaAnualArray = Object.entries(deudaPorAño).map(([ano, total]) => ({
+      Ano: ano,
+      Total: total
+    }))
+
+    // Imprime el resultado
+    res.status(200).send(deudaAnualArray)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
 const getDeuda = async (req, res) => {
   try {
     const Deuda = await DeudaDatabase.getDeuda()
@@ -62,5 +92,6 @@ module.exports = {
   getDeuda,
   postDeuda,
   getDeudaGrafica,
+  GetDeudaforYears,
   PostDeudaforTrimester
 }

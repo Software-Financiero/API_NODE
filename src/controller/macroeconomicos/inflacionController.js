@@ -25,6 +25,35 @@ const PostInflacionforTrimester = async (req, res) => {
   }
 }
 
+const GetInflacionforYears = async (req, res) => {
+  try {
+    const data = await Inflacion.find().sort({ Ano: 1, Trimestre: 1 })
+
+    const inflacionPorAño = data.reduce((resultado, objeto) => {
+      const ano = objeto.Ano
+      const porcentaje = objeto.Porcentaje
+
+      if (resultado[ano]) {
+        resultado[ano] += porcentaje
+      } else {
+        resultado[ano] = porcentaje
+      }
+      return resultado
+    }, {})
+
+    // Convierte el objeto en un arreglo de objetos
+    const inflacionAnualArray = Object.entries(inflacionPorAño).map(([ano, porcentaje]) => ({
+      Ano: ano,
+      Porcentaje_Anual: porcentaje
+    }))
+
+    // Imprime el resultado
+    res.status(200).send(inflacionAnualArray)
+  } catch (error) {
+    res.send(error)
+  }
+}
+
 const getInflacion = async (req, res) => {
   try {
     const Inflacion = await InflacionDatabase.getInflacion()
@@ -63,5 +92,6 @@ module.exports = {
   getInflacion,
   postInflacion,
   getInflacionGrafica,
+  GetInflacionforYears,
   PostInflacionforTrimester
 }

@@ -8,6 +8,7 @@ const path = '/api/v1/ied'
 
 router.get(`${path}/`, IedController.getIed)
 router.get(`${path}/grafica`, IedController.getIedGrafica)
+router.get(`${path}/years`, IedController.GetIEDforYears)
 router.post(`${path}/save`, upload, IedController.PostIEDforTrimester)
 
 module.exports = router

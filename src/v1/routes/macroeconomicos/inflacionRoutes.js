@@ -8,6 +8,7 @@ const path = '/api/v1/inflacion'
 
 router.get(`${path}/`, InflacionController.getInflacion)
 router.get(`${path}/grafica`, InflacionController.getInflacionGrafica)
+router.get(`${path}/years`, InflacionController.GetInflacionforYears)
 router.post(`${path}/save`, upload, InflacionController.PostInflacionforTrimester)
 
 module.exports = router
