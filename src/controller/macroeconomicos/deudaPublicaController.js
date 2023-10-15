@@ -27,7 +27,7 @@ const PostDeudaforTrimester = async (req, res) => {
 
 const GetDeudaforYears = async (req, res) => {
   try {
-    const data = await Deuda.find().sort({ Ano: 1, Trimestre: 1 })
+    const data = await Deuda.find({ Ano: { $gte: 2020 } }).sort({ Ano: 1, Trimestre: 1 })
 
     const deudaPorAño = data.reduce((resultado, objeto) => {
       const ano = objeto.Ano

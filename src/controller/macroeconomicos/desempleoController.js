@@ -27,7 +27,7 @@ const PostDesempleoforTrimester = async (req, res) => {
 
 const getDesempleoforYears = async (req, res) => {
   try {
-    const data = await Desempleo.find().sort({ Ano: 1, Trimestre: 1 })
+    const data = await Desempleo.find({ Ano: { $gte: 2020 } }).sort({ Ano: 1, Trimestre: 1 })
 
     const desempleoPorAño = data.reduce((resultado, objeto) => {
       const ano = objeto.Ano

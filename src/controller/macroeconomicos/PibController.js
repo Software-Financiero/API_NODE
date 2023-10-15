@@ -27,7 +27,7 @@ const PostPIBforTrimester = async (req, res) => {
 
 const GetPIBforYears = async (req, res) => {
   try {
-    const data = await PIB.find().sort({ Ano: 1, Trimestre: 1 })
+    const data = await PIB.find({ Ano: { $gte: 2020 } }).sort({ Ano: 1, Trimestre: 1 })
 
     const pibPorAño = data.reduce((resultado, objeto) => {
       const ano = objeto.Ano

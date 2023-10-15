@@ -27,7 +27,7 @@ const PostInflacionforTrimester = async (req, res) => {
 
 const GetInflacionforYears = async (req, res) => {
   try {
-    const data = await Inflacion.find().sort({ Ano: 1, Trimestre: 1 })
+    const data = await Inflacion.find({ Ano: { $gte: 2020 } }).sort({ Ano: 1, Trimestre: 1 })
 
     const inflacionPorAño = data.reduce((resultado, objeto) => {
       const ano = objeto.Ano

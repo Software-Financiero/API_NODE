@@ -27,7 +27,7 @@ const PostIEDforTrimester = async (req, res) => {
 
 const GetIEDforYears = async (req, res) => {
   try {
-    const data = await IED.find().sort({ Ano: 1, Trimestre: 1 })
+    const data = await IED.find({ Ano: { $gte: 2020 } }).sort({ Ano: 1, Trimestre: 1 })
 
     const iedPorAño = data.reduce((resultado, objeto) => {
       const ano = objeto.Ano
