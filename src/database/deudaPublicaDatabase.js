@@ -41,7 +41,7 @@ const getDeuda = async () => {
 
 const getDeudaGrafica = async () => {
   try {
-    return await Deuda.aggregate([
+    const deudadata = await Deuda.aggregate([
       {
         $addFields: {
           MesNumerico: {
@@ -57,10 +57,9 @@ const getDeudaGrafica = async () => {
       {
         $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
       },
-      {
-        $match: { Ano: { $gt: 2019 } },
-      },
     ]);
+
+    return deudadata.filter((item) => item.Ano > 2019);
   } catch (error) {
     throw { error };
   }
@@ -83,5 +82,5 @@ const postDeuda = async (datosRecibidos) => {
 module.exports = {
   getDeuda,
   postDeuda,
-  getDeudaGrafica
+  getDeudaGrafica,
 };

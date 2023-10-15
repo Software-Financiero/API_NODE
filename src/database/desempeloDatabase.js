@@ -41,7 +41,7 @@ const getDesempleo = async () => {
 
 const getDesempleoGrafica = async () => {
   try {
-    return await Desempleo.aggregate([
+    const desempleodata = await Desempleo.aggregate([
       {
         $addFields: {
           MesNumerico: {
@@ -57,10 +57,9 @@ const getDesempleoGrafica = async () => {
       {
         $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
       },
-      {
-        $match: { Ano: { $gt: 2019 } },
-      },
     ]);
+
+    return desempleodata.filter((item) => item.Ano > 2019);
   } catch (error) {
     throw { error };
   }
