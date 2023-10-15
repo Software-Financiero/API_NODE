@@ -1,4 +1,4 @@
-const { Inflacion } = require("../models/Inflacion");
+const { Inflacion } = require('../models/Inflacion')
 
 const meses = {
   Ene: 1,
@@ -12,8 +12,8 @@ const meses = {
   Sep: 9,
   Oct: 10,
   Nov: 11,
-  Dic: 12,
-};
+  Dic: 12
+}
 
 const getInflacionGrafica = async () => {
   try {
@@ -24,22 +24,22 @@ const getInflacionGrafica = async () => {
             $arrayElemAt: [
               Object.values(meses),
               {
-                $indexOfArray: [Object.keys(meses), "$Mes"],
-              },
-            ],
-          },
-        },
+                $indexOfArray: [Object.keys(meses), '$Mes']
+              }
+            ]
+          }
+        }
       },
       {
-        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
-      },
-    ]);
+        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 }
+      }
+    ])
 
-    return inflacionData.filter((item) => item.Ano > 2019);
+    return inflacionData.filter((item) => item.Ano > 2019)
   } catch (error) {
-    throw { error };
+
   }
-};
+}
 
 const getInflacion = async () => {
   try {
@@ -50,36 +50,36 @@ const getInflacion = async () => {
             $arrayElemAt: [
               Object.values(meses),
               {
-                $indexOfArray: [Object.keys(meses), "$Mes"],
-              },
-            ],
-          },
-        },
+                $indexOfArray: [Object.keys(meses), '$Mes']
+              }
+            ]
+          }
+        }
       },
       {
-        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
-      },
-    ]);
+        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 }
+      }
+    ])
 
-    return inflacionData;
+    return inflacionData
   } catch (error) {
-    throw { error };
+
   }
-};
+}
 
 const postInflacion = async (datosRecibidos) => {
   try {
     const datosConOrden = datosRecibidos.map((dato, index) => ({
       ...dato,
-      Orden: index + 1,
-    }));
+      Orden: index + 1
+    }))
 
-    const Result = await Inflacion.create(datosConOrden);
-    return Result;
+    const Result = await Inflacion.create(datosConOrden)
+    return Result
   } catch (error) {
-    throw { error };
+
   }
-};
+}
 
 module.exports = {
   getInflacion,

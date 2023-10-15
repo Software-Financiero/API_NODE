@@ -1,4 +1,4 @@
-const { Deuda } = require("../models/DeudaPublica");
+const { Deuda } = require('../models/DeudaPublica')
 
 const meses = {
   Ene: 1,
@@ -12,8 +12,8 @@ const meses = {
   Sep: 9,
   Oct: 10,
   Nov: 11,
-  Dic: 12,
-};
+  Dic: 12
+}
 
 const getDeuda = async () => {
   try {
@@ -24,20 +24,20 @@ const getDeuda = async () => {
             $arrayElemAt: [
               Object.values(meses),
               {
-                $indexOfArray: [Object.keys(meses), "$Mes"],
-              },
-            ],
-          },
-        },
+                $indexOfArray: [Object.keys(meses), '$Mes']
+              }
+            ]
+          }
+        }
       },
       {
-        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
-      },
-    ]);
+        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 }
+      }
+    ])
   } catch (error) {
-    throw { error };
+
   }
-};
+}
 
 const getDeudaGrafica = async () => {
   try {
@@ -48,39 +48,39 @@ const getDeudaGrafica = async () => {
             $arrayElemAt: [
               Object.values(meses),
               {
-                $indexOfArray: [Object.keys(meses), "$Mes"],
-              },
-            ],
-          },
-        },
+                $indexOfArray: [Object.keys(meses), '$Mes']
+              }
+            ]
+          }
+        }
       },
       {
-        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 },
-      },
-    ]);
+        $sort: { Ano: 1, MesNumerico: 1, Orden: 1 }
+      }
+    ])
 
-    return deudadata.filter((item) => item.Ano > 2019);
+    return deudadata.filter((item) => item.Ano > 2019)
   } catch (error) {
-    throw { error };
+
   }
-};
+}
 
 const postDeuda = async (datosRecibidos) => {
   try {
     const datosConOrden = datosRecibidos.map((dato, index) => ({
       ...dato,
-      Orden: index + 1,
-    }));
+      Orden: index + 1
+    }))
 
-    const Result = await Deuda.create(datosConOrden);
-    return Result;
+    const Result = await Deuda.create(datosConOrden)
+    return Result
   } catch (error) {
-    throw { error };
+
   }
-};
+}
 
 module.exports = {
   getDeuda,
   postDeuda,
-  getDeudaGrafica,
-};
+  getDeudaGrafica
+}
