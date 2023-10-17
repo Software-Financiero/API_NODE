@@ -84,5 +84,5 @@ const postInflacion = async (datosRecibidos) => {
 module.exports = {
   getInflacion,
   postInflacion,
-  getInflacionGrafica
-}
+  getInflacionGrafica,
+};
