@@ -8,7 +8,8 @@ const path = '/api/v1/pib'
 
 router.get(`${path}/`, PibController.getPib)
 router.get(`${path}/grafica`, PibController.getPibGrafica)
-router.post(`${path}/save`, upload, PibController.PostPIBforTrimester)
+router.get(`${path}/prediccion`, PibController.prediccionesPIB)
 router.get(`${path}/years`, PibController.GetPIBforYears)
+router.post(`${path}/save`, upload, PibController.PostPIBforTrimester)
 
 module.exports = router

@@ -9,6 +9,7 @@ const path = '/api/v1/deuda'
 router.get(`${path}`, DeudaController.getDeuda)
 router.get(`${path}/years`, DeudaController.GetDeudaforYears)
 router.get(`${path}/grafica`, DeudaController.getDeudaGrafica)
+router.get(`${path}/prediccion`, DeudaController.prediccionesDeuda)
 router.post(`${path}/save`, upload, DeudaController.PostDeudaforTrimester)
 
 module.exports = router

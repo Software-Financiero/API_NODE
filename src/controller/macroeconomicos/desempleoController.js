@@ -88,10 +88,20 @@ const postDesempleo = async (req, res) => {
   }
 }
 
+const prediccionesDesempleo = async (req, res) => {
+  try {
+    const response = await axios.get('https://api-python.fly.dev/indicadores/desempleo/prediccion')
+    const data = response.data // Obtener solo los datos de la respuesta
+    res.status(200).json(data)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
 module.exports = {
   getDesempleo,
   postDesempleo,
   getDesempleoGrafica,
   getDesempleoforYears,
-  PostDesempleoforTrimester
+  PostDesempleoforTrimester,
+  prediccionesDesempleo
 }

@@ -76,6 +76,16 @@ const getInflacionGrafica = async (req, res) => {
   }
 }
 
+const prediccionesInflacion = async (req, res) => {
+  try {
+    const response = await axios.get('https://api-python.fly.dev/indicadores/inflacion/prediccion')
+    const data = response.data // Obtener solo los datos de la respuesta
+    res.status(200).json(data)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
 const postInflacion = async (req, res) => {
   try {
     const datosRecibidos = req.body
@@ -93,5 +103,6 @@ module.exports = {
   postInflacion,
   getInflacionGrafica,
   GetInflacionforYears,
-  PostInflacionforTrimester
+  PostInflacionforTrimester,
+  prediccionesInflacion
 }

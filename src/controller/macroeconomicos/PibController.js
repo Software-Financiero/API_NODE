@@ -76,6 +76,16 @@ const getPibGrafica = async (req, res) => {
   }
 }
 
+const prediccionesPIB = async (req, res) => {
+  try {
+    const response = await axios.get('https://api-python.fly.dev/indicadores/PIB/prediccion')
+    const data = response.data // Obtener solo los datos de la respuesta
+    res.status(200).json(data)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
 const postPib = async (req, res) => {
   try {
     const datosRecibidos = req.body
@@ -93,5 +103,6 @@ module.exports = {
   postPib,
   getPibGrafica,
   GetPIBforYears,
-  PostPIBforTrimester
+  PostPIBforTrimester,
+  prediccionesPIB
 }
