@@ -78,7 +78,8 @@ const getPibGrafica = async (req, res) => {
 
 const prediccionesPIB = async (req, res) => {
   try {
-    const response = await axios.get('https://api-python.fly.dev/indicadores/PIB/prediccion')
+    const date = req.body
+    const response = await axios.post('https://api-python.fly.dev/indicadores/PIB/prediccion', date)
     const data = response.data // Obtener solo los datos de la respuesta
     res.status(200).json(data)
   } catch (error) {

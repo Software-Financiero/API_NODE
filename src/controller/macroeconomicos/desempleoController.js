@@ -90,7 +90,8 @@ const postDesempleo = async (req, res) => {
 
 const prediccionesDesempleo = async (req, res) => {
   try {
-    const response = await axios.get('https://api-python.fly.dev/indicadores/desempleo/prediccion')
+    const date = req.body
+    const response = await axios.post('https://api-python.fly.dev/indicadores/desempleo/prediccion', date)
     const data = response.data // Obtener solo los datos de la respuesta
     res.status(200).json(data)
   } catch (error) {
