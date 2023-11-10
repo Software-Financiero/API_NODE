@@ -4,7 +4,7 @@ const axios = require('axios')
 
 parentPort.on('message', async (message) => {
   if (message === 'start') {
-    cron.schedule('*/30 * * * *', async () => {
+    cron.schedule('*/1 * * * *', async () => {
       await updateCoinLive()
     })
     cron.schedule('*/60 * * * *', async () => {

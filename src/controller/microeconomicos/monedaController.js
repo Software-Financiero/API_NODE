@@ -27,7 +27,8 @@ const saveMoneda = async (req, res) => {
 
 const convertCoin = async (req, res) => {
   try {
-    const response = await axios.post('https://api-python.fly.dev/indicadores/moneda/convert', req.body)
+    const coin = req.params.coin
+    const response = await axios.post(`https://api-python.fly.dev/indicadores/moneda/convert/${coin}`, req.body)
     const result = response.data
     if (response !== null) {
       res.status(200).send(result)
