@@ -18,7 +18,7 @@ const updateCoinLive = async () => {
     const response = await axios.get('https://api-python.fly.dev/indicadores/moneda/live')
     const monedaLive = response.data
 
-    parentPort.postMessage({ message: 'Live', monedaLive })
+    parentPort.postMessage({ message: 'live', monedaLive })
   } catch (error) {
     console.log(error)
   }

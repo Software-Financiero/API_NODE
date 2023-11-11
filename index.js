@@ -62,7 +62,7 @@ io.on('connection', (socketClient) => {
 worker.postMessage('start')
 
 worker.on('message', async (message) => {
-  if (socket !== null && message.message === 'Live') {
+  if (socket !== null && message.message === 'live') {
     socket.emit('live', message.monedaLive)
   }
 })
