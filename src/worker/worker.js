@@ -7,7 +7,7 @@ parentPort.on('message', async (message) => {
     cron.schedule('*/30 * * * *', async () => {
       await updateCoinLive()
     })
-    cron.schedule('*/60 * * * *', async () => {
+    cron.schedule('0 0 * * *', async () => {
       await updateCoinData()
     })
   }
