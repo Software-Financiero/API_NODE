@@ -3,7 +3,7 @@ const { moneda } = require('../../models/moneda')
 
 const getMoneda = async (req, res) => {
   try {
-    const data = await moneda.find()
+    const data = await moneda.find().sort({ vigenciadesde: -1 })
     if (data) {
       res.status(200).send(data)
     }
