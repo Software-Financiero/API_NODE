@@ -1,6 +1,5 @@
 const axios = require('axios')
 const { moneda } = require('../../models/moneda')
-
 const moment = require('moment')
 
 const getMoneda = async (req, res) => {
@@ -12,7 +11,27 @@ const getMoneda = async (req, res) => {
         data[i].vigenciadesde = moment(data[i].vigenciadesde).format('YYYY-MM-DD')
         data[i].vigenciahasta = moment(data[i].vigenciahasta).format('YYYY-MM-DD')
       }
-      res.status(200).send(data)
+      // Organizar por fecha y eliminar duplicados
+      const organizedData = data.reduce((acc, curr) => {
+        const dateStr = new Date(curr.vigenciadesde).toISOString() // Convertir a cadena para comparación
+
+        // Verificar si ya existe un documento con la misma fecha
+        const existingData = acc.find(item => new Date(item.vigenciadesde).toISOString() === dateStr)
+
+        if (!existingData) {
+        // Si no existe, agregar el documento al resultado
+          acc.push(curr)
+        }
+
+        return acc
+      }, [])
+
+      // Ordenar por fecha de forma descendente
+      const sortedData = organizedData.sort((a, b) => new Date(b.vigenciadesde) - new Date(a.vigenciadesde))
+
+      if (sortedData) {
+        res.status(200).send(sortedData)
+      }
     }
   } catch (error) {
     console.log(error)
