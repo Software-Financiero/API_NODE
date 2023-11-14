@@ -7,10 +7,10 @@ const getMoneda = async (req, res) => {
 
     // Organizar por fecha y eliminar duplicados
     const organizedData = data.reduce((acc, curr) => {
-      const dateStr = new Date(curr.vigenciadesde).toISOString() // Convertir a cadena para comparación
+      const dateStr = new Date(curr.vigenciadesde).toISOString().split('T')[0] // Obtener solo la parte de la fecha
 
       // Verificar si ya existe un documento con la misma fecha
-      const existingData = acc.find(item => new Date(item.vigenciadesde).toISOString() === dateStr)
+      const existingData = acc.find(item => new Date(item.vigenciadesde).toISOString().split('T')[0] === dateStr)
 
       if (!existingData) {
         // Si no existe, agregar el documento al resultado
@@ -22,12 +22,13 @@ const getMoneda = async (req, res) => {
 
     // Ordenar por fecha de forma descendente
     const sortedData = organizedData.sort((a, b) => new Date(b.vigenciadesde) - new Date(a.vigenciadesde))
+
     if (sortedData) {
       // Formatear la fecha en la respuesta
       const formattedData = sortedData.map(item => ({
         ...item,
-        vigenciadesde: new Date(item.vigenciadesde).toLocaleDateString(),
-        vigenciahasta: new Date(item.vigenciahasta).toLocaleDateString()
+        vigenciadesde: new Date(item.vigenciadesde).toISOString().split('T')[0],
+        vigenciahasta: new Date(item.vigenciahasta).toISOString().split('T')[0]
       }))
 
       res.status(200).send(formattedData)
