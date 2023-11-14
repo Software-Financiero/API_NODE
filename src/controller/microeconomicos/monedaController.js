@@ -22,9 +22,15 @@ const getMoneda = async (req, res) => {
 
     // Ordenar por fecha de forma descendente
     const sortedData = organizedData.sort((a, b) => new Date(b.vigenciadesde) - new Date(a.vigenciadesde))
-
     if (sortedData) {
-      res.status(200).send(sortedData)
+      // Formatear la fecha en la respuesta
+      const formattedData = sortedData.map(item => ({
+        ...item,
+        vigenciadesde: new Date(item.vigenciadesde).toLocaleDateString(),
+        vigenciahasta: new Date(item.vigenciahasta).toLocaleDateString()
+      }))
+
+      res.status(200).send(formattedData)
     }
   } catch (error) {
     console.error(error)
