@@ -1,44 +1,23 @@
 const axios = require('axios')
 const { moneda } = require('../../models/moneda')
 
+const moment = require('moment')
+
 const getMoneda = async (req, res) => {
   try {
-    const data = await moneda.find()
-
-    // Organizar por fecha y eliminar duplicados
-    const organizedData = data.reduce((acc, curr) => {
-      const dateStr = new Date(curr.vigenciadesde).toISOString().split('T')[0] // Obtener solo la parte de la fecha
-
-      // Verificar si ya existe un documento con la misma fecha
-      const existingData = acc.find(item => new Date(item.vigenciadesde).toISOString().split('T')[0] === dateStr)
-
-      if (!existingData) {
-        // Si no existe, agregar el documento al resultado
-        acc.push(curr)
+    const data = await moneda.find().sort({ vigenciadesde: 1 })
+    if (data) {
+      // Formatear todas las fechas
+      for (let i = 0; i < data.length; i++) {
+        data[i].vigenciadesde = moment(data[i].vigenciadesde).format('YYYY-MM-DD')
+        data[i].vigenciahasta = moment(data[i].vigenciahasta).format('YYYY-MM-DD')
       }
-
-      return acc
-    }, [])
-
-    // Ordenar por fecha de forma descendente
-    const sortedData = organizedData.sort((a, b) => new Date(b.vigenciadesde) - new Date(a.vigenciadesde))
-
-    if (sortedData) {
-      // Formatear la fecha en la respuesta
-      const formattedData = sortedData.map(item => ({
-        ...item,
-        vigenciadesde: new Date(item.vigenciadesde).toISOString().split('T')[0],
-        vigenciahasta: new Date(item.vigenciahasta).toISOString().split('T')[0]
-      }))
-
-      res.status(200).send(formattedData)
+      res.status(200).send(data)
     }
   } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'Internal Server Error' })
+    console.log(error)
   }
 }
-
 const saveMoneda = async (req, res) => {
   try {
     const response = await axios.get('https://api-python.fly.dev/indicadores/moneda/historical')
