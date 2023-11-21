@@ -6,7 +6,7 @@ const PostDeudaforTrimester = async (req, res) => {
   try {
     const fileData = req.file.buffer
 
-    const response = await axios.post('https://api-python.fly.dev/indicadores/deuda', fileData, {
+    const response = await axios.post('https://api-python-2.fly.dev/indicadores/deuda', fileData, {
       headers: {
         'Content-Type': 'application/octet-stream' // Asegura que los datos se envíen como un archivo binario
       }
@@ -79,7 +79,7 @@ const getDeudaGrafica = async (req, res) => {
 const prediccionesDeuda = async (req, res) => {
   try {
     const date = req.body
-    const response = await axios.post('https://api-python.fly.dev/indicadores/deuda/prediccion', date)
+    const response = await axios.post('https://api-python-2.fly.dev/indicadores/deuda/prediccion', date)
     const data = response.data // Obtener solo los datos de la respuesta
     res.status(200).json(data)
   } catch (error) {

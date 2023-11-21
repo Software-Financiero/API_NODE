@@ -39,7 +39,7 @@ const getMoneda = async (req, res) => {
 }
 const saveMoneda = async (req, res) => {
   try {
-    const response = await axios.get('https://api-python.fly.dev/indicadores/moneda/historical')
+    const response = await axios.get('https://api-python-2.fly.dev/indicadores/moneda/historical')
     const monedahistorical = response.data
     if (monedahistorical !== null) {
       const dataSave = await moneda.create(monedahistorical)
@@ -54,7 +54,7 @@ const saveMoneda = async (req, res) => {
 const convertCoin = async (req, res) => {
   try {
     const coin = req.params.coin
-    const response = await axios.post(`https://api-python.fly.dev/indicadores/moneda/convert/${coin}`, req.body)
+    const response = await axios.post(`https://api-python-2.fly.dev/indicadores/moneda/convert/${coin}`, req.body)
     const result = response.data
     if (response !== null) {
       res.status(200).send(result)
