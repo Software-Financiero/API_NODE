@@ -15,7 +15,7 @@ parentPort.on('message', async (message) => {
 
 const updateCoinLive = async () => {
   try {
-    const response = await axios.get('https://api-python.fly.dev/indicadores/moneda/live')
+    const response = await axios.get('https://api-python-2.fly.dev/indicadores/moneda/live')
     const monedaLive = response.data
 
     parentPort.postMessage({ message: 'live', monedaLive })
@@ -26,7 +26,7 @@ const updateCoinLive = async () => {
 
 const updateCoinData = async (message) => {
   try {
-    const response = await axios.get('http://localhost:3007/api/v1/moneda/save')
+    const response = await axios.get('https://tamworth-swift-parrot-msbt.2.us-1.fl0.io/api/v1/moneda/save')
     if (response.status === 200) {
       console.log('Moneda Actualizada')
     }

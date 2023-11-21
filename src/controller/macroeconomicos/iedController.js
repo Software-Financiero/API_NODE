@@ -6,7 +6,7 @@ const PostIEDforTrimester = async (req, res) => {
   try {
     const fileData = req.file.buffer
 
-    const response = await axios.post('https://api-python.fly.dev/indicadores/IED', fileData, {
+    const response = await axios.post('https://api-python-2.fly.dev/indicadores/IED', fileData, {
       headers: {
         'Content-Type': 'application/octet-stream' // Asegura que los datos se envíen como un archivo binario
       }
